@@ -1,0 +1,33 @@
+@require '../../../styles/styleHelpers.styl';
+
+btn() {
+  border: none;
+  cursor: pointer;
+  font-size: .7em;
+}
+.action-btn {
+  margin: 0 auto;
+  color: $link-color;
+  background-color: $cta-color;
+  padding: 20px 40px;
+  text-align: center;
+  btn();
+  &:hover {
+    background-color: $cta-hover-color;
+  }
+}
+.link-btn {
+  background: none;
+  border: none;
+  color: $white;
+  btn();
+  &:hover {
+    color: $link-hover-color;
+  }
+}
+
+@media only screen and (max-width: $max-phone) {
+  .action-btn {
+    width: 100%;
+  }
+}
