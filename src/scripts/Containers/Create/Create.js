@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Location } from '../../Components/Location/Location';
-import { LocationMap } from '../../Components/LocationMap/LocationMap';
 import createStyles from './Create.styl';
 import mockData from '../../mockData.js';
+import { Link } from 'react-router';
 
 export class Create extends Component {
     constructor(props) {
@@ -22,7 +22,7 @@ export class Create extends Component {
                 <div className="content-container" role="main">
                     <h1 className="bottom-margin top-margin">Create a FindMe</h1>
                     <Location useLocation={(value) => this.resetMarker(value)}/>
-                    <LocationMap locationGoal={this.state.locationGoal} initialLocation={this.state.initialLocation} marker={this.state.marker}/>
+                    <Link to="find" style={{float: 'right'}}>View this FindMe</Link>
                 </div>
             </div>
         )

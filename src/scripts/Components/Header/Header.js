@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ActionButton } from '../ActionButton/ActionButton';
 import headerStyles from './Header.styl';
+import { Link } from 'react-router';
 
 export class Header extends Component {
     logout() {
@@ -12,6 +13,7 @@ export class Header extends Component {
         return (
             <header className="header content-container" role="banner">
                 <span>Find Me</span>
+                <Link to="create" style={{float: 'right'}}>Create FindMe</Link>
             </header>
         )
     }
