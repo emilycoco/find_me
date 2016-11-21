@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import d3 from 'd3';
+import { Dot } from '..//Dot/Dot';
 import locationMapStyles from './LocationMap.styl';
 
 export class LocationMap extends Component {
@@ -23,7 +24,7 @@ export class LocationMap extends Component {
         let markerOffset =  newmarkerDiff * this.state.pixelMultiplier;
         let mapStyle = {};
         let markerStyle = {};
-        console.log('here', markerOffset, newmarkerDiff, this.state.lonDiff)
+
         if (newmarkerDiff > this.state.lonDiff) {
             mapStyle = {
                 borderBottom: '1px solid red'
@@ -33,12 +34,14 @@ export class LocationMap extends Component {
                 'top': markerOffset + 'px'
             };
         }
+
         return (
             <div className="location-map" style={mapStyle}>
-                <span>{Math.abs(this.props.locationGoal.lon - this.props.marker.lon)}</span>
-                <div className="dot"></div>
-                <div className="dot marker"
-                     style={markerStyle}></div>
+                {
+                    this.props.dots.map((dot, idx) => (
+                        <Dot key={idx} color="red" style={markerStyle}/>
+                    ))
+                }
             </div>
         )
     }
