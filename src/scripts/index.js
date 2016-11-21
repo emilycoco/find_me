@@ -2,16 +2,15 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { syncHistoryWithStore } from 'react-router-redux'
 import findMeApp from './redux/reducers.js';
 import { Router, Route, Link, IndexRoute, hashHistory} from 'react-router';
 import globalStyles from './../styles/global.styl';
-import { App} from './Containers/App/App';
-import { Create } from './Containers/Create/Create';
+import { App } from './Containers/App/App';
+import Create from './Containers/Create/Create';
 import { Chrome } from './Containers/Chrome/Chrome';
 import { Find } from './Containers/Find/Find';
 
-const store = createStore(findMeApp);
+const store = createStore(findMeApp, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render((
 	<Provider store={store}>

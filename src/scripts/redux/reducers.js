@@ -5,12 +5,10 @@ const initialState = {
 };
 
 const locations = (state = initialState, action) => {
-    let locations = state.locations;
     let newState = state;
     switch (action.type) {
         case 'ADD_LOCATION':
-            locations[action.id] = action.location;
-            newState.locations = locations;
+            newState.locations[action.id] = action.location;
             return newState;
         default:
             return state

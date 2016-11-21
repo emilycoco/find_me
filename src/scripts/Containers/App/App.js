@@ -1,26 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Header } from '../../Components/Header/Header';
 import { Footer } from '../../Components/Footer/Footer';
-import addLocation from '../../redux/actions.js';
 import appStyles from './App.styl';
 import mockData from '../../mockData.js';
 
-const mapStateToProps = (state) => {
-    return {
-        locations: state.locations
-    }
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onAddLocation: (location) => {
-            dispatch(addLocation(location));
-        }
-    }
-};
-
-class FindMeApp extends Component {
+export class App extends Component {
     render() {
         return (
             <div className="app">
@@ -30,9 +14,3 @@ class FindMeApp extends Component {
     }
 }
 
-const App = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(FindMeApp);
-
-export default App;

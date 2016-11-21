@@ -9,8 +9,7 @@ export class Location extends Component {
     recordLocation() {
         navigator.geolocation.getCurrentPosition(
             (pos) => {
-                this.props.useLocation({
-                    id: 678,
+                this.props.storeLocation({
                     lat: pos.coords.latitude,
                     lon: pos.coords.longitude
                 });
