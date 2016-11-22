@@ -26,7 +26,7 @@ export class ContainerCreate extends Component {
     }
     render() {
         return (
-            <div className="create">
+            <div className="create center">
                 <div className="content-container" role="main">
                     <h1 className="bottom-margin top-margin">Create a FindMe</h1>
                     <Location storeLocation={this.props.onAddLocation}/>

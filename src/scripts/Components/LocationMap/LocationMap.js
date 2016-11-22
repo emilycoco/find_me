@@ -6,43 +6,70 @@ import locationMapStyles from './LocationMap.styl';
 export class LocationMap extends Component {
     constructor(props) {
         super(props);
-        const latDiff = Math.abs(this.props.locationGoal.lat - this.props.initialLocation.lat);
-        const lonDiff = Math.abs(this.props.locationGoal.lon - this.props.initialLocation.lon);
-        const pixelMultiplier = 380/lonDiff;
 
         this.state = {
-            pixelMultiplier: pixelMultiplier,
-            lonDiff: lonDiff
+            currentLocation: null,
+            distance: null
         }
     }
-    calibrateDistance() {
-        const latDiff = this.props.locationGoal.lat - this.props.marker.lat;
-        const lonDiff = this.props.locationGoal.lon - this.props.marker.lon;
+
+    componentDidMount() {
+        this.getCurrentPosition()
+            .then(currentLocation => {
+                this.setState({currentLocation});
+                return currentLocation;
+            })
+            .then(currentLocation => {
+                const distance = Math.ceil(this.getDistanceBetween(
+                    currentLocation.lon,
+                    currentLocation.lat,
+                    this.props.locationGoal.lon,
+                    this.props.locationGoal.lat
+                ));
+
+                this.setState({distance});
+            })
     }
+
     render() {
-        let newmarkerDiff = Math.abs(this.props.locationGoal.lon - this.props.marker.lon);
-        let markerOffset =  newmarkerDiff * this.state.pixelMultiplier;
-        let mapStyle = {};
-        let markerStyle = {};
-
-        if (newmarkerDiff > this.state.lonDiff) {
-            mapStyle = {
-                borderBottom: '1px solid red'
-            };
-        } else {
-            markerStyle = {
-                'top': markerOffset + 'px'
-            };
-        }
-
         return (
-            <div className="location-map" style={mapStyle}>
-                {
-                    this.props.dots.map((dot, idx) => (
-                        <Dot key={idx} color="red" style={markerStyle}/>
-                    ))
-                }
+            <div className="location-map">
+                {this.state.distance ?
+                    <p>You are {this.state.distance} ft from your goal.</p> :
+                    <p>Getting your location...</p>}
             </div>
         )
+    }
+
+    getCurrentPosition() {
+        return new Promise(function(resolve, reject) {
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    resolve({
+                        lat: pos.coords.latitude,
+                        lon: pos.coords.longitude
+                    })
+                },
+                (err) => {
+                    reject(err);
+                },
+                {enableHighAccuracy: true}
+            )
+        });
+    }
+
+    getDistanceBetween(lon1, lat1, lon2, lat2) {
+        const toRad = function(num) {
+            return num * Math.PI / 180;
+        };
+        var R = 6371; // Radius of the earth in km
+        var dLat = toRad(lat2-lat1);  // Javascript functions in radians
+        var dLon = toRad(lon2-lon1);
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        var d = R * c; // Distance in km
+        return d * 3280.83989501;
     }
 }

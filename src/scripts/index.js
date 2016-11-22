@@ -1,3 +1,4 @@
+import "babel-polyfill";
 import ReactDOM from 'react-dom';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -8,7 +9,7 @@ import globalStyles from './../styles/global.styl';
 import { App } from './Containers/App/App';
 import Create from './Containers/Create/Create';
 import { Chrome } from './Containers/Chrome/Chrome';
-import { Find } from './Containers/Find/Find';
+import Find from './Containers/Find/Find';
 
 const store = createStore(findMeApp, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 

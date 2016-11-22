@@ -6,7 +6,7 @@ var BUILD_DIR = path.resolve(__dirname, 'build');
 var APP_DIR = path.resolve(__dirname, 'src');
 
 var config = {
-    entry: APP_DIR + '/scripts/index.js',
+    entry: ['babel-polyfill', APP_DIR + '/scripts/index.js'],
     output: {
         path: path.resolve(__dirname, BUILD_DIR),
         publicPath: '/build/',
